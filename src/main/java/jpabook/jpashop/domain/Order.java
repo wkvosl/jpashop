@@ -8,6 +8,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,10 +21,11 @@ public class Order {
 	@Column(name = "order_id")
 	private Long id;
 	
-	@Column(name = "member_id")
-	private Long memberId;
+	@ManyToOne
+	@JoinColumn(name = "member_id")
+	private Member member;
 	
-	private LocalDateTime orderDate;
+	private LocalDateTime orderDate; //스트링부트에서는 order_date로 변경이 기본 설정 되어 있다.
 	
 	@Enumerated(EnumType.STRING)
 	private OrderStatus status;
@@ -33,14 +36,6 @@ public class Order {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Long getMemberId() {
-		return memberId;
-	}
-
-	public void setMemberId(Long memberId) {
-		this.memberId = memberId;
 	}
 
 	public LocalDateTime getOrderDate() {
@@ -57,6 +52,15 @@ public class Order {
 
 	public void setStatus(OrderStatus status) {
 		this.status = status;
+	}
+
+	
+	public void setMember(Member member) {
+		this.member = member;
+	}
+	
+	public Member getMember() {
+		return member;
 	}
 	
 }

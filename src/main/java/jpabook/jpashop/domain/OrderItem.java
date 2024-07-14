@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class OrderItem {
@@ -13,11 +15,13 @@ public class OrderItem {
 	@Column(name = "order_item_id")
 	private Long id;
 	
-	@Column(name = "order_id")
-	private Long orderId; 
+	@ManyToOne
+	@JoinColumn(name = "order_id")
+	private Order order;
 	
-	@Column(name = "item_id")
-	private Long itemId;
+	@ManyToOne
+	@JoinColumn(name = "item_id")
+	private Item itemId;
 	
 	private int orderPrice;
 	
@@ -31,19 +35,19 @@ public class OrderItem {
 		this.id = id;
 	}
 
-	public Long getOrderId() {
-		return orderId;
+	public Order getOrder() {
+		return order;
 	}
 
-	public void setOrderId(Long orderId) {
-		this.orderId = orderId;
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 
-	public Long getItemId() {
+	public Item getItemId() {
 		return itemId;
 	}
 
-	public void setItemId(Long itemId) {
+	public void setItemId(Item itemId) {
 		this.itemId = itemId;
 	}
 
