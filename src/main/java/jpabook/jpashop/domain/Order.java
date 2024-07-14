@@ -1,6 +1,8 @@
 package jpabook.jpashop.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,6 +27,9 @@ public class Order {
 	@ManyToOne
 	@JoinColumn(name = "member_id")
 	private Member member;
+	
+	@OneToMany(mappedBy = "order")
+	private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 	
 	private LocalDateTime orderDate; //스트링부트에서는 order_date로 변경이 기본 설정 되어 있다.
 	
@@ -61,6 +67,11 @@ public class Order {
 	
 	public Member getMember() {
 		return member;
+	}
+
+	public void addOrderItem(OrderItem orderItem) {
+		orderItems.add(orderItem);
+		orderItem.setOrder(this);
 	}
 	
 }
