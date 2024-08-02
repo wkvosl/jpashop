@@ -4,18 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Item {
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn//jpa 기본이 DTYPE
+public abstract class Item extends BaseEntity{
 
 	@Id
 	@GeneratedValue
 	@Column(name = "item_id")
-	private Long Id;
+	private Long id;
 	
 	private String name;
 	
@@ -25,14 +31,13 @@ public class Item {
 
 	@ManyToMany(mappedBy = "items")
 	private List<Category> category =  new ArrayList<>();
-	
-	
+
 	public Long getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(Long id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public String getName() {
@@ -55,8 +60,15 @@ public class Item {
 		return stockQuantity;
 	}
 
-	public void setStockQuntity(int stockQuantity) {
+	public void setStockQuantity(int stockQuantity) {
 		this.stockQuantity = stockQuantity;
 	}
 
+	public List<Category> getCategory() {
+		return category;
+	}
+
+	public void setCategory(List<Category> category) {
+		this.category = category;
+	}
 }

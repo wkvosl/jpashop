@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order extends BaseEntity{
 
 	@Id
 	@GeneratedValue
@@ -30,7 +30,7 @@ public class Order {
 	private Member member;
 	
 	@OneToMany(mappedBy = "order")
-	private List<OrderItem> orderItems = new ArrayList<OrderItem>();
+	private List<OrderItem> orderItems = new ArrayList<>();
 	
 	private LocalDateTime orderDate; //스트링부트에서는 order_date로 변경이 기본 설정 되어 있다.
 	
