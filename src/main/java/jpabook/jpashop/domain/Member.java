@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,14 +20,17 @@ public class Member extends BaseEntity{
 	
 	private String name;
 
-	private String city;
-
-	private String street;
-
-	private String zipcode;
+	//주소 address
+	@Embedded
+	private Address address;
 	
 	@OneToMany(mappedBy = "member")
 	private List<Order> orders = new ArrayList<Order>();
+
+    //기간 Period
+	@Embedded
+	private Period period;
+	
 
 	public Long getId() {
 		return id;
@@ -44,28 +48,28 @@ public class Member extends BaseEntity{
 		this.name = name;
 	}
 
-	public String getCity() {
-		return city;
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
-	public String getStreet() {
-		return street;
+	public List<Order> getOrders() {
+		return orders;
 	}
 
-	public void setStreet(String street) {
-		this.street = street;
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
-	public String getZipcode() {
-		return zipcode;
+	public Period getPeriod() {
+		return period;
 	}
 
-	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
+	public void setPeriod(Period period) {
+		this.period = period;
 	}
 	
 }

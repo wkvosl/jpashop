@@ -11,7 +11,9 @@ import javax.persistence.Persistence;
 
 import org.hibernate.type.LocalDateTimeType;
 
+import jpabook.jpashop.domain.Address;
 import jpabook.jpashop.domain.Book;
+import jpabook.jpashop.domain.Member;
 
 
 public class JpaMain {
@@ -25,12 +27,10 @@ public class JpaMain {
 				
 			try {
 				
-				Book book = new Book();
-				book.setName("JPA");
-				book.setAuthor("김영한");
-				book.setCreatedBy("admin");
-				book.setCreatedDate(LocalDateTime.now());
-				em.persist(book);
+				
+				Member member = new Member();
+				member.setAddress(new Address("충북","성안길","13548"));
+				em.persist(member);
 				
 				tx.commit();
 			   }catch (Exception e) {
